@@ -3,12 +3,12 @@ import {Platform} from 'react-native';
 let serverUrl;
 
 if (process.env.NODE_ENV === 'production') {
-  serverUrl = 'https://xxx.com';
+  serverUrl = 'https://lingkwongbe.herokuapp.com';
 } else {
   if (Platform.OS === 'android') {
-    serverUrl = 'http://10.0.2.2:1337';
+    serverUrl = 'https://lingkwongbe.herokuapp.com';
   } else if (Platform.OS === 'ios') {
-    serverUrl = 'http://localhost:1337';
+    serverUrl = 'https://lingkwongbe.herokuapp.com';
   }
 }
 
