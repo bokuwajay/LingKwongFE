@@ -1,12 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, Dimensions, Image, Pressable} from 'react-native';
+import {
+  Text,
+  View,
+  Dimensions,
+  Image,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import {NativeBaseProvider, Box, Button} from 'native-base';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import moment from 'moment';
 import 'moment/locale/zh-hk';
 import {serverUrl} from '../env';
+import LoadingAnimation from './Loading';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
@@ -14,6 +22,7 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
 export default function HomeScreen({navigation}) {
   const [time, setTime] = React.useState();
   const [data, setData] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
 
   async function fetchData() {
     const res = await fetch(`${serverUrl}/content-pages`);
@@ -30,10 +39,19 @@ export default function HomeScreen({navigation}) {
       setTime(moment(new Date()).format('LLLL'));
     }, 1000);
 
+    const loadingTimer = setTimeout(() => {
+      if (data === '') {
+        setIsLoading(true);
+      } else {
+        setIsLoading(false);
+      }
+    }, 3000);
+
     return () => {
       clearInterval(timer);
+      clearTimeout(loadingTimer);
     };
-  }, []);
+  }, [data]);
 
   const renderItem = ({item}) => {
     return (
@@ -71,7 +89,9 @@ export default function HomeScreen({navigation}) {
     );
   };
 
-  return (
+  return isLoading ? (
+    <LoadingAnimation />
+  ) : (
     <NativeBaseProvider>
       <SafeAreaView
         style={{
