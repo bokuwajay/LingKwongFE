@@ -77,6 +77,7 @@ export default function HomeScreen({navigation}) {
           />
           <Text
             style={{
+              marginTop: 10,
               textAlign: 'center',
               fontSize: 48,
               fontWeight: 'bold',

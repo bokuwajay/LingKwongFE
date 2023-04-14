@@ -41,6 +41,7 @@ const SubCarousel = ({route}) => {
           />
           <Text
             style={{
+              marginTop: 10,
               textAlign: 'center',
               fontSize: 48,
               fontWeight: 'bold',
@@ -79,8 +80,18 @@ const SubCarousel = ({route}) => {
             </View>
           </Box>
         </Box>
-        <Box style={{position: 'absolute', bottom: 20, zIndex: 10}}>
-          <Button onPress={() => navigation.goBack()}>返回上一頁</Button>
+        <Box
+          style={{
+            position: 'absolute',
+            bottom: 50,
+            zIndex: 10,
+            width: '50%',
+          }}>
+          <Button
+            onPress={() => navigation.goBack()}
+            style={{backgroundColor: '#000000'}}>
+            <Text style={{fontSize: 30, color: '#FFFFFF'}}>返回上一頁</Text>
+          </Button>
         </Box>
         <Box
           style={{

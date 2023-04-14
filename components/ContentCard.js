@@ -9,7 +9,7 @@ import {
 } from 'native-base';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import Sound from 'react-native-sound';
 import {serverUrl} from '../env';
 // import songfile from '../android/app/src/main/res/raw/song.mp3';
@@ -28,7 +28,7 @@ const ContentCard = ({route}) => {
   //     console.log('Error playing sound: ', error);
   //   }
   // }, []);
-
+  console.log(content);
   return (
     <NativeBaseProvider>
       <SafeAreaView
@@ -36,7 +36,6 @@ const ContentCard = ({route}) => {
           height: '100%',
           width: '100%',
           alignItems: 'center',
-          justifyContent: 'center',
         }}>
         {audio.length > 0 ? (
           <View
@@ -48,20 +47,30 @@ const ContentCard = ({route}) => {
             <AudioPlayer url={`${serverUrl}${audio[0]?.url}`} />
           </View>
         ) : (
-          <Box border="1" borderRadius="md">
-            <Box px="4">
-              <Text style={{fontSize: 18}}>{content}</Text>
-            </Box>
-          </Box>
+          <ScrollView
+            style={{
+              padding: 10,
+              flexGrow: 0.9,
+              flex: 1,
+            }}>
+            <Text
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                padding: 10,
+                fontSize: 30,
+                lineHeight: 40,
+              }}>
+              {content}
+            </Text>
+          </ScrollView>
         )}
-        {/* <Box>
-          <Button onPress={() => sing()}>Play</Button>
-        </Box>
-        <Box>
-          <Button onPress={() => SoundPlayer.stop()}>Stop</Button>
-        </Box> */}
-        <Box style={{position: 'absolute', bottom: 40}}>
-          <Button onPress={() => navigation.goBack()}>返回上一頁</Button>
+        <Box style={{position: 'absolute', bottom: 40, width: '50%'}}>
+          <Button
+            onPress={() => navigation.goBack()}
+            style={{backgroundColor: '#000000'}}>
+            <Text style={{fontSize: 20, color: '#FFFFFF'}}>返回上一頁</Text>
+          </Button>
         </Box>
       </SafeAreaView>
     </NativeBaseProvider>
