@@ -28,7 +28,7 @@ const ContentCard = ({route}) => {
   //     console.log('Error playing sound: ', error);
   //   }
   // }, []);
-  console.log(content);
+
   return (
     <NativeBaseProvider>
       <SafeAreaView
